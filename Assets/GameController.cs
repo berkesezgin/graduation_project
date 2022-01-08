@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
-
+    public Transform ball;
     TimeSpan timePlaying;
     public Text timeCounter;
     public bool gamePlaying { get; private set; }
@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour
     private void Update()
     {
 
-        if (gamePlaying)
+        if (ball != null)
         {
             elapsedTime = Time.time - startTime;
             timePlaying = TimeSpan.FromSeconds(elapsedTime);
