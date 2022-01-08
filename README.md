@@ -1,2 +1,2 @@
 # graduation_project
-ENS491 Gradutaion Project
+ENS491 Graduation Project
