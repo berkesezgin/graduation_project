@@ -13,7 +13,9 @@ public class GameController : MonoBehaviour
     public Text timeCounter;
     public bool gamePlaying { get; private set; }
     private float startTime, elapsedTime;
-
+    private string finalTime;
+    public static string showFinalTime;
+    private string timePlayingStr;
     private void Awake()
     {
         instance = this;
@@ -36,14 +38,25 @@ public class GameController : MonoBehaviour
     private void Update()
     {
 
+<<<<<<< Updated upstream
         if (ball != null)
+=======
+        if (gamePlaying == true && ball != null)
+>>>>>>> Stashed changes
         {
             elapsedTime = Time.time - startTime;
             timePlaying = TimeSpan.FromSeconds(elapsedTime);
 
-            string timePlayingStr = "Time: " + timePlaying.ToString("mm' : 'ss'.'ff");
+            timePlayingStr = "Time: " + timePlaying.ToString("mm' : 'ss'.'ff");
             timeCounter.text = timePlayingStr;
         }
+        if (ball == null)
+        {
+            finalTime = timePlayingStr;
+            showFinalTime = finalTime;
+            Debug.Log(finalTime);
+        }
+
     }
 
 

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
@@ -24,11 +24,18 @@ public class ball : MonoBehaviour
     string GetFilePath()
     {
         string sceneName = SceneManager.GetActiveScene().name;
+<<<<<<< Updated upstream
         string filePath = Path.Combine(@"C:\Users\HP\Documents\GitHub\graduation_project\testtxt", sceneName + ".txt");
+=======
+        string filePath = Path.Combine(@"C:\Users\TULPAR\Documents\GitHub\graduation_project\testtxt", sceneName + ".txt");
+>>>>>>> Stashed changes
         for (int i = 1; File.Exists(filePath); ++i)
         {
             filename = sceneName + "_(" + i + ").txt";
-            filePath = Path.Combine(Application.persistentDataPath, filename);
+            filePath = Path.Combine(@"C:\Users\TULPAR\Documents\GitHub\graduation_project\testtxt", filename);
+            Debug.Log(filename);
+            Debug.Log(filePath);
+            Debug.Log("jkhjkhlı");
         }
 
         return filePath;
@@ -36,13 +43,14 @@ public class ball : MonoBehaviour
     void AppendPositionsToFile()
     {
         File.AppendAllLines(filePathx, positions.ConvertAll(position => position.ToString()));
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
 
+        timer += Time.deltaTime;
 
         if (timer > Frequency)
         {
@@ -65,8 +73,11 @@ public class ball : MonoBehaviour
     {
         if (other.name == "goal")
         {
+            string scenename = "GameOver";
             Destroy(gameObject);
             Debug.Log("You win!!!");
+            Debug.Log("sceneName to load: " + scenename);
+            SceneManager.LoadScene(scenename);
         }
     }
 

@@ -6,6 +6,6 @@ public class play : MonoBehaviour
 {
     public void GameStart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("SampleScene");
     }
 } 
