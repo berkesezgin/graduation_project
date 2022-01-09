@@ -8,8 +8,6 @@ public class GameOverScreen : MonoBehaviour
     public string finalTime; //Final Time which is taken from Game Control script.
     public static string showFinalTime; //Final Time as static string in order to display it on screen.
 
-    public string report_number; // Report Number needs to be generated in this script. But still static at this point!!!
-
     public static string child_username = "child1"; //Username of the child normally will be taken from Game Control.
     public static string status; //Status taken from Game Control given according to the Final Time.
 
@@ -31,7 +29,6 @@ public class GameOverScreen : MonoBehaviour
         Text txtStatus = transform.Find("Status").GetComponent<Text>();
         txtStatus.text = status;
 
-        report_number = "33";
 
         
     }

@@ -24,11 +24,11 @@ public class ball : MonoBehaviour
     string GetFilePath()
     {
         string sceneName = SceneManager.GetActiveScene().name;
-        string filePath = Path.Combine(@"C:\Users\HP\Documents\GitHub\graduation_project\testtxt", sceneName + ".txt");
+        string filePath = Path.Combine(@"C:\Users\TULPAR\Documents\GitHub\graduation_project\testtxt", sceneName + ".txt");
         for (int i = 1; File.Exists(filePath); ++i)
         {
             filename = sceneName + "_(" + i + ").txt";
-            filePath = Path.Combine(@"C:\Users\HP\Documents\GitHub\graduation_project\testtxt", filename);
+            filePath = Path.Combine(@"C:\Users\TULPAR\Documents\GitHub\graduation_project\testtxt", filename);
             Debug.Log(filename);
             Debug.Log(filePath);
             Debug.Log("jkhjkhlı");
