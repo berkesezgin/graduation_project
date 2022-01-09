@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 466127}
   - component: {fileID: 466126}
   - component: {fileID: 466131}
+  - component: {fileID: 466132}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -248,10 +249,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4809f682aa0e0f1458c1f6c568f9dce3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ball: {fileID: 0}
+  Ball: {fileID: 466130}
   Frequency: 1
   filePathx: 
   filename: 
+--- !u!114 &466132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba817e2d367cef48841d83d529fb2d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &407347509
 GameObject:
   m_ObjectHideFlags: 0
