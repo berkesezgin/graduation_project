@@ -11,6 +11,8 @@ public class GameOverScreen : MonoBehaviour
     public static string child_username = "child1"; //Username of the child normally will be taken from Game Control.
     public static string status; //Status taken from Game Control given according to the Final Time.
 
+    public static string difficulty_string;
+
 
     private void Start()
     {
@@ -29,7 +31,21 @@ public class GameOverScreen : MonoBehaviour
         Text txtStatus = transform.Find("Status").GetComponent<Text>();
         txtStatus.text = status;
 
+        if (PlayerPrefs.GetInt("diff") == 1)
+        {
+            difficulty_string = "hard";
+        }
+        else if (PlayerPrefs.GetInt("diff") == 0)
+        {
+            difficulty_string = "easy";
+        }
+        else if (!(PlayerPrefs.GetInt("diff") == 1 && PlayerPrefs.GetInt("diff") == 0))
+        {
+            difficulty_string = "easy";
+        }
 
-        
+        Text txtDifficulty = transform.Find("Difficulty").GetComponent<Text>();
+        txtDifficulty.text = "Mode: " + difficulty_string;
+
     }
 }

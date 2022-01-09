@@ -5,6 +5,7 @@ using UnityEngine;
 public class difficulty : MonoBehaviour
 {
 
+
     private Rigidbody rb;
     void Awake()
     {

@@ -14,6 +14,7 @@ public class reportShowScript : MonoBehaviour
     public static string child_username = "child1"; //Username of the child normally will be taken from Game Control.
     public static string status; //Status taken from Game Control given according to the Final Time.
 
+    public static string difficulty_string;
 
     // Start is called before the first frame update
     private void Start()
@@ -22,7 +23,7 @@ public class reportShowScript : MonoBehaviour
         Debug.Log("Show report number: " + report_number);
 
         Text txtReport = transform.Find("ReportNumber").GetComponent<Text>(); //Printing report number as text
-        txtReport.text = report_number;
+        txtReport.text = "Report: " + report_number;
 
         showFinalTime = GameController.showFinalTime; // Where you will change the report number
         Debug.Log("Showing Final Time: " + showFinalTime);
@@ -31,13 +32,18 @@ public class reportShowScript : MonoBehaviour
         txtTime.text = showFinalTime;
 
         Text txtUsername = transform.Find("Username").GetComponent<Text>(); //Printing the username as text
-        txtUsername.text = child_username;
+        txtUsername.text = "Username: " + child_username;
 
         status = GameController.status; // Where you will change the report number!!!(MongoDB)
         Debug.Log("Your status is: " + status);
 
         Text txtStatus = transform.Find("Status").GetComponent<Text>(); //Printing the status as text
-        txtStatus.text = status;
+        txtStatus.text = "Status: " + status;
+
+        difficulty_string = "hard";
+
+        Text txtDifficulty = transform.Find("Difficulty").GetComponent<Text>();
+        txtDifficulty.text = "Difficulty: " + difficulty_string;
 
     }
     // Update is called once per frame
