@@ -16,6 +16,9 @@ public class GameController : MonoBehaviour
     private string finalTime;
     public static string showFinalTime;
     private string timePlayingStr;
+    public static int totalSeconds;
+    public static string status;
+
     private void Awake()
     {
         instance = this;
@@ -38,11 +41,7 @@ public class GameController : MonoBehaviour
     private void Update()
     {
 
-<<<<<<< Updated upstream
-        if (ball != null)
-=======
         if (gamePlaying == true && ball != null)
->>>>>>> Stashed changes
         {
             elapsedTime = Time.time - startTime;
             timePlaying = TimeSpan.FromSeconds(elapsedTime);
@@ -55,9 +54,17 @@ public class GameController : MonoBehaviour
             finalTime = timePlayingStr;
             showFinalTime = finalTime;
             Debug.Log(finalTime);
+
+            totalSeconds = (int) timePlaying.TotalSeconds;
+
+            if (totalSeconds < 10)
+            {
+                status = "Great Job!";
+            }
+            else 
+            {
+                status = "Needs to be improved";
+            }
         }
-
     }
-
-
 }

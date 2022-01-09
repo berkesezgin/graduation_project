@@ -24,11 +24,7 @@ public class ball : MonoBehaviour
     string GetFilePath()
     {
         string sceneName = SceneManager.GetActiveScene().name;
-<<<<<<< Updated upstream
-        string filePath = Path.Combine(@"C:\Users\HP\Documents\GitHub\graduation_project\testtxt", sceneName + ".txt");
-=======
         string filePath = Path.Combine(@"C:\Users\TULPAR\Documents\GitHub\graduation_project\testtxt", sceneName + ".txt");
->>>>>>> Stashed changes
         for (int i = 1; File.Exists(filePath); ++i)
         {
             filename = sceneName + "_(" + i + ").txt";
