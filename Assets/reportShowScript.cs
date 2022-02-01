@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using System.Text;
 
 public class reportShowScript : MonoBehaviour
 {
@@ -15,10 +17,14 @@ public class reportShowScript : MonoBehaviour
     public static string status; //Status taken from Game Control given according to the Final Time.
 
     public static string difficulty_string;
+    private ReportData _reportData;
+
+    private CreateNumberData _createNumberData;
 
     // Start is called before the first frame update
     private void Start()
     {
+
         report_number = sendReportNumber.report_number; // Where you will change the report number!!!(MongoDB)
         Debug.Log("Show report number: " + report_number);
 
@@ -40,10 +46,15 @@ public class reportShowScript : MonoBehaviour
         Text txtStatus = transform.Find("Status").GetComponent<Text>(); //Printing the status as text
         txtStatus.text = "Status: " + status;
 
-        difficulty_string = "hard";
-
         Text txtDifficulty = transform.Find("Difficulty").GetComponent<Text>();
         txtDifficulty.text = "Difficulty: " + difficulty_string;
+
+        _createNumberData = new CreateNumberData();
+        _createNumberData.report_no = report_number;
+
+        StartCoroutine(Upload(_createNumberData.Stringify(), result => {
+            Debug.Log("upload" + result);
+        }));
 
     }
     // Update is called once per frame
@@ -52,5 +63,31 @@ public class reportShowScript : MonoBehaviour
         
     }
 
+    IEnumerator Upload(string profile, System.Action<bool> callback = null)
+    {
+        using (UnityWebRequest request = new UnityWebRequest("http://127.0.0.1:8000//request_patient_data", "POST"))
+        {
+            request.SetRequestHeader("Content-Type", "application/json");
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(profile);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            yield return request.SendWebRequest();
+            if (request.isNetworkError || request.isHttpError)
+            {
+                Debug.Log(request.error);
+                if(callback != null)
+                {
+                    callback.Invoke(false);
+                }
+            }
+            else
+            {
+                if(callback != null)
+                {
+                    callback.Invoke(request.downloadHandler.text != "{}");
+                }
+            }
+        }
+    }
 
 }
