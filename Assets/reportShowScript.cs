@@ -19,42 +19,45 @@ public class reportShowScript : MonoBehaviour
     public static string difficulty_string;
     private ReportData _reportData;
 
-    private CreateNumberData _createNumberData;
 
     // Start is called before the first frame update
     private void Start()
     {
 
-        report_number = sendReportNumber.report_number; // Where you will change the report number!!!(MongoDB)
+        _reportData = new ReportData();
+    
+        report_number = sendReportNumber.report_no; // Where you will change the report number!!!(MongoDB)
         Debug.Log("Show report number: " + report_number);
 
-        Text txtReport = transform.Find("ReportNumber").GetComponent<Text>(); //Printing report number as text
-        txtReport.text = "Report: " + report_number;
+        StartCoroutine(Download(report_number, result => {
+            Debug.Log("Burada " + result.report_no);
+
+            Text txtReport = transform.Find("ReportNumber").GetComponent<Text>(); //Printing report number as text
+        txtReport.text = "Report: " + result.report_no;
 
         showFinalTime = GameController.showFinalTime; // Where you will change the report number
-        Debug.Log("Showing Final Time: " + showFinalTime);
+        Debug.Log("Showing Final Time: " + result.time);
 
         Text txtTime = transform.Find("TimeText").GetComponent<Text>(); //Printing the time as text
         txtTime.text = showFinalTime;
 
         Text txtUsername = transform.Find("Username").GetComponent<Text>(); //Printing the username as text
-        txtUsername.text = "Username: " + child_username;
+        txtUsername.text = "Username: " + result.pname;
 
         status = GameController.status; // Where you will change the report number!!!(MongoDB)
-        Debug.Log("Your status is: " + status);
+        Debug.Log("Your status is: " + result.status);
 
         Text txtStatus = transform.Find("Status").GetComponent<Text>(); //Printing the status as text
-        txtStatus.text = "Status: " + status;
+        txtStatus.text = "Status: " + result.status;
 
         Text txtDifficulty = transform.Find("Difficulty").GetComponent<Text>();
-        txtDifficulty.text = "Difficulty: " + difficulty_string;
-
-        _createNumberData = new CreateNumberData();
-        _createNumberData.report_no = report_number;
-
-        StartCoroutine(Upload(_createNumberData.Stringify(), result => {
-            Debug.Log("upload" + result);
+        txtDifficulty.text = "Difficulty: " + result.difficulty;
         }));
+
+
+        
+
+
 
     }
     // Update is called once per frame
@@ -63,31 +66,29 @@ public class reportShowScript : MonoBehaviour
         
     }
 
-    IEnumerator Upload(string profile, System.Action<bool> callback = null)
+    
+
+IEnumerator Download(string report_number, System.Action<ReportData> callback = null)
+{
+    using (UnityWebRequest request = UnityWebRequest.Get("http://localhost:8000/patient_report?reportInput=" + report_number))
     {
-        using (UnityWebRequest request = new UnityWebRequest("http://127.0.0.1:8000//request_patient_data", "POST"))
+        yield return request.SendWebRequest();
+
+        if (request.isNetworkError || request.isHttpError)
         {
-            request.SetRequestHeader("Content-Type", "application/json");
-            byte[] bodyRaw = Encoding.UTF8.GetBytes(profile);
-            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            request.downloadHandler = new DownloadHandlerBuffer();
-            yield return request.SendWebRequest();
-            if (request.isNetworkError || request.isHttpError)
+            Debug.Log(request.error);
+            if (callback != null)
             {
-                Debug.Log(request.error);
-                if(callback != null)
-                {
-                    callback.Invoke(false);
-                }
+                callback.Invoke(null);
             }
-            else
+        }
+        else
+        {
+            if (callback != null)
             {
-                if(callback != null)
-                {
-                    callback.Invoke(request.downloadHandler.text != "{}");
-                }
+                callback.Invoke(ReportData.Parse(request.downloadHandler.text));
             }
         }
     }
-
+}
 }

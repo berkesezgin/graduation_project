@@ -9,19 +9,18 @@ public class GameOverScreen : MonoBehaviour
 {
     public string finalTime; //Final Time which is taken from Game Control script.
     public static string showFinalTime; //Final Time as static string in order to display it on screen.
-
     public static string child_username = "child1"; //Username of the child normally will be taken from Game Control.
-
-    public static string report_number = "15";
+    public static int report_number_int;
+    public static string report_number;
     public static string status; //Status taken from Game Control given according to the Final Time.
-
     public static string difficulty_string;
-
     private PatientData _patientData;
 
 
     private void Start()
     {
+        report_number_int = report_number_int+1;
+        report_number = report_number_int.ToString();
         showFinalTime = GameController.showFinalTime;
         Debug.Log("Showing Final Time: " + showFinalTime);
 

@@ -11,7 +11,6 @@ public class PatientData
     public string status;
 
 
-
         // 'public' variables here ...
     public string Stringify()
     {

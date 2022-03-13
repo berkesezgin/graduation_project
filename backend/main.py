@@ -44,14 +44,10 @@ async def patient_data(new_patientInput: NewPatientInput, background_tasks: Back
     background_tasks.add_task(patient_func.write_on_db,new_patientInput.report_no, new_patientInput.pname, new_patientInput.difficulty, new_patientInput.time, new_patientInput.status)
     return {"message": "sent to db"}
 
-@app.post("/request_patient_data")
-async def request_patient_data(new_requestPatientInput: NewRequestPatientInput, background_tasks: BackgroundTasks):
-    background_tasks.add_task(patient_func.pull_from_db,new_requestPatientInput.report_no)
-    return {"patient report": "patient report request sent to db"}
-
 
 @app.get("/patient_report")
 async def patient_report(reportInput:str):
+    patient_func.pull_from_db(reportInput)
     patient_result = {}
     patient_report = ens_game.patient_report.get(reportInput, " ")
     patient_result["patient_report"] = patient_report
@@ -60,4 +56,4 @@ async def patient_report(reportInput:str):
     difficulty = patient_result["patient_report"]["difficulty"]
     time = patient_result["patient_report"]["time"]
     status = patient_result["patient_report"]["status"]
-    return patient_result, report_no, pname, difficulty, time, status
+    return patient_result["patient_report"]
