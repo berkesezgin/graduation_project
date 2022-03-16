@@ -14,7 +14,7 @@ public class tilt : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         currenRot = GetComponent<Transform>().eulerAngles;
