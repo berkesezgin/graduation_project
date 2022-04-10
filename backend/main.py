@@ -56,4 +56,24 @@ async def patient_report(reportInput:str):
     difficulty = patient_result["patient_report"]["difficulty"]
     time = patient_result["patient_report"]["time"]
     status = patient_result["patient_report"]["status"]
+    print(patient_result["patient_report"])
     return patient_result["patient_report"]
+
+
+@app.get("/signup_patient")
+async def signup_patient(pname:str):
+    patient_func.sign_up(pname)
+    signup_message = {}
+    message = ens_game.signup_message
+    signup_message["message"] = message
+    print(signup_message["message"])
+    return signup_message["message"]
+
+@app.get("/login_patient")
+async def login_patient(pname:str):
+    patient_func.log_in(pname)
+    login_message = {}
+    message = ens_game.login_message
+    login_message["message"] = message
+    print(login_message["message"])
+    return login_message["message"]
