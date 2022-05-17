@@ -3,7 +3,7 @@ import pymongo
 from models import Patient
 
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false")
+myclient = pymongo.MongoClient("mongodb+srv://ensgame:ens491project@cluster0.qoyno.mongodb.net/?retryWrites=true&w=majority")
 mydb = myclient["ens_game"]
 patient_report = {}
 signup_message = {}
@@ -35,6 +35,12 @@ class Patient_functions:
         for x in mydoc:
             print(x)
         patient_report[report_no] = x
+        pass
+
+    def pull_patient_usernames(self):
+        myquery = {"pname": {} }
+        patient_col = mydb['patient']
+        mydoc = patient_col.find(myquery, {'_id': 0})
         pass
 
     def sign_up(self, pname: str):
